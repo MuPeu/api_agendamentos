@@ -2,11 +2,13 @@ package com.example.api_agendamentos.controller;
 
 import com.example.api_agendamentos.model.Cliente;
 import com.example.api_agendamentos.service.ClienteService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/mecanica")
+@RequestMapping("/api/mecanica/cliente")
 public class ClienteController {
 
     private final ClienteService clienteService;
@@ -15,15 +17,12 @@ public class ClienteController {
         this.clienteService = clienteService;
     }
 
-    @GetMapping("/clientes")
+    @GetMapping
     public List<Cliente> listar() { return clienteService.listarTodos(); }
 
-    @PostMapping("/clientes")
-    public Cliente criar(@RequestBody Cliente cliente) { return clienteService.salvar(cliente); }
-
-    @GetMapping("/")
-    public List<Cliente> listar() { return clienteService.listarTodos(); }
-
-    @PostMapping("/clientes")
-    public Cliente criar(@RequestBody Cliente cliente) { return clienteService.salvar(cliente); }
+    @PostMapping
+    public ResponseEntity<Cliente> salvar(@RequestBody Cliente cliente) {
+        Cliente novo = clienteService.salvar(cliente);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novo);
+    }
 }

@@ -1,4 +1,10 @@
 package com.example.api_agendamentos.repository;
 
-public interface ServicoRepository {
+import com.example.api_agendamentos.model.*;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ServicoRepository extends JpaRepository<Servico, Integer> {
+
 }

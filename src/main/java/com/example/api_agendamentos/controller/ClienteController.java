@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/clientes")
+@RequestMapping("/api/mecanica")
 public class ClienteController {
 
     private final ClienteService clienteService;
@@ -15,9 +15,15 @@ public class ClienteController {
         this.clienteService = clienteService;
     }
 
-    @GetMapping
+    @GetMapping("/clientes")
     public List<Cliente> listar() { return clienteService.listarTodos(); }
 
-    @PostMapping
+    @PostMapping("/clientes")
+    public Cliente criar(@RequestBody Cliente cliente) { return clienteService.salvar(cliente); }
+
+    @GetMapping("/")
+    public List<Cliente> listar() { return clienteService.listarTodos(); }
+
+    @PostMapping("/clientes")
     public Cliente criar(@RequestBody Cliente cliente) { return clienteService.salvar(cliente); }
 }

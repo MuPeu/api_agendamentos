@@ -2,6 +2,7 @@ package com.example.api_agendamentos.controller;
 
 import com.example.api_agendamentos.model.Agendamento;
 import com.example.api_agendamentos.service.AgendamentoService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -19,7 +20,10 @@ public class AgendamentoController {
     public List<Agendamento> listar() { return agendamentoService.listarTodos(); }
 
     @PostMapping
-    public Agendamento criar(@RequestBody Agendamento agendamento) { return agendamentoService.salvar(agendamento); }
+    public ResponseEntity<Agendamento> salvar(@RequestBody Agendamento agendamento) {
+        Agendamento novo = agendamentoService.salvar(agendamento);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novo);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Agendamento> buscarAgendamento(@PathVariable Integer id) {
